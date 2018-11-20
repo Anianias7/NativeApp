@@ -13,8 +13,3 @@ export const getMoviesPremeiersDataError = errorMsg => ({
 export const getMoviesPremeiersDataLoading = () => ({
     type: actionTypes.GET_MOVIES_PREMIERS_DATA_LOADING
 })
-
-export const VisibilityFilters = {
-    SHOW_ALL_MOVIES: 'SHOW_ALL_MOVIES',
-    SHOW_MOVIES_FOR_CURRENT_MONTH: 'SHOW_MOVIES_FOR_CURRENT_MONTH',
-}

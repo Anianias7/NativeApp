@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Text } from 'react-native'
-import { getMoviesPremiersIds } from './src/store/MoviesPremiers/thunks'
-// import { getMoviesPlayedInCinemasThisMonth } from './src/serivices/api/movieApi'
+import { getMoviesPremiers } from './src/store/MoviesPremiers/thunks'
+import { getTVPremiers } from './src/store/TVPremiers/thunks'
 
 import SearchScreenContainer from './src/Screens/SearchScreen/SearchScreenContainer'
-import MoviesScreen from './src/Screens/MoviesScreen/MoviesScreen'
-import ShowsScreen from './src/Screens/ShowsScreen/ShowsScreen'
+// import MoviesScreen from './src/Screens/MoviesScreen/MoviesScreen'
+import MoviesPremiersScreen from './src/Screens/MoviesPremiersScreen/MoviesPremiersScreenContainer'
+// import ShowsScreen from './src/Screens/ShowsScreen/ShowsScreen'
+import ShowsPremiersScreen from './src/Screens/ShowsPremiersScreen/ShowsPremiersScreenContainer'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { createBottomTabNavigator } from 'react-navigation'
 
@@ -14,11 +16,12 @@ class App extends Component {
 
   componentDidMount() {
     this.props.getMoviesData()
-    console.log("OOOOOOOOOOOOOOO", this.props.getMoviesData())
+    this.props.getShowsData()
 
   }
 
   render() {
+
     const Navigator = createBottomTabNavigator({
       Search: {
         screen: SearchScreenContainer,
@@ -30,7 +33,7 @@ class App extends Component {
         }
       },
       Movies: {
-        screen: MoviesScreen,
+        screen: MoviesPremiersScreen,
         navigationOptions: {
           tabBarLabel: 'MOVIES',
           tabBarIcon: ({ tintColor }) => (
@@ -39,18 +42,9 @@ class App extends Component {
         },
       },
       Shows: {
-        screen: ShowsScreen,
+        screen: ShowsPremiersScreen,
         navigationOptions: {
           tabBarLabel: 'SHOWS',
-          tabBarIcon: ({ tintColor }) => (
-            <Icon name="tv" color={tintColor} size={26} />
-          )
-        }
-      },
-      Movie: {
-        screen: ShowsScreen,
-        navigationOptions: {
-          tabBarLabel: 'MOVIE',
           tabBarIcon: ({ tintColor }) => (
             <Icon name="tv" color={tintColor} size={26} />
           )
@@ -68,17 +62,20 @@ class App extends Component {
           }
         }
       })
-    return !this.props.moviesDataLoading ? <Navigator /> : <Text>LOADING...</Text>
+    return !this.props.moviesDataLoading && !this.props.showsDataLoading ? <Navigator /> : <Text>LOADING...</Text>
   }
 }
 
 const mapStateToProps = state => ({
-  moviesData: state.MoviesPremiersReducer.data,
-  moviesDataLoading: state.MoviesPremiersReducer.loading
+  moviesData: state.moviesPremiers.data,
+  moviesDataLoading: state.moviesPremiers.loading,
+  showsData: state.showsPremiers.data,
+  showsDataLoading: state.showsPremiers.loading
 })
 
 const mapDispatchToProps = ({
-  getMoviesData: getMoviesPremiersIds
+  getMoviesData: getMoviesPremiers,
+  getShowsData: getTVPremiers
 })
 
 

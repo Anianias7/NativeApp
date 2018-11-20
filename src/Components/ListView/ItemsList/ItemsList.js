@@ -1,42 +1,26 @@
 import React from 'react'
-import { View } from 'react-native'
+import { ScrollView } from 'react-native'
 
 import ListItem from '../ListItem/ListItem'
+import styles from './ItemsList.style'
 
-const data = [
-    {
-        title: 'Tytanic',
-        year: '2018',
-        premiereDate: '18.11.2018',
-        image: {
-            uri: require('../../../assets/images/titanic.jpg'),
-        },
-    },
-    {
-        title: 'Ciekawy przypadek Benjamina Buttona',
-        year: '2017',
-        premiereDate: '25.12.2018',
-        image: {
-            uri: require('../../../assets/images/benjaminButton.jpg'),
-        }
-    },
-]
+const ItemsList = (props) => {
 
-const ItemsList = () => {
-
-    const movieItems = data.map((item) =>
-        <ListItem
+    const movieItems = props.data.map((item, i) => {
+        return <ListItem
+            itemId={i}
             key={item.title}
-            imageUri={item.image.uri}
+            id={item.id}
+            imageUri={item.image}
             title={item.title}
             year={item.year}
             premiereDate={item.premiereDate} />
-    );
+    });
 
     return (
-        <View>
+        <ScrollView style={styles.ItemsListContainer}>
             {movieItems}
-        </View>
+        </ScrollView>
     );
 }
 

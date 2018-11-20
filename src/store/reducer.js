@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import MoviesPremiersReducer from '../store/MoviesPremiers/reducer'
+import moviesPremiers from '../store/MoviesPremiers/reducer'
+import showsPremiers from '../store/TVPremiers/reducer'
 
 const reducers = combineReducers({
-    MoviesPremiersReducer,
+    moviesPremiers,
+    showsPremiers
 })
 
 const rootReducer = (state, action) => (

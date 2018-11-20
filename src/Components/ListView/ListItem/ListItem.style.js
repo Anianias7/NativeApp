@@ -1,17 +1,17 @@
 export default {
     ItemContainer: {
         flexDirection: 'row',
-        marginHorizontal: '1%',
+        marginHorizontal: '0.5%',
         marginVertical: '2%',
-        borderBottomColor: '#009688',
-        borderBottomWidth: 0.8,
+        backgroundColor: 'white',
         padding: 5,
         height: 120,
+        elevation: 20
     },
+
     ItemImageContainer: {
         width: 80,
         height: 100,
-
     },
     ItemImage: {
         flex: 1,

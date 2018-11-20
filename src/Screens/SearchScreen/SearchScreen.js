@@ -14,8 +14,13 @@ const SearchView = (props) => {
     const images = [{ image: require('../../assets/images/movie.png') }, { image: require('../../assets/images/tv.png') }];
     const texts = ['Premiery filmowe', 'Premiery telewizyjne'];
 
-    const imagesDupa = props.moviesPremiers.reduce((acc, val) => acc.concat({ image: { uri: `https://image.tmdb.org/t/p/w200${val.poster_path}`}}) ,[]);
-console.log(imagesDupa)
+    const moviesPosters = props.moviesPremiers.reduce((acc, val) =>
+        acc.concat({ image: { uri: `https://image.tmdb.org/t/p/w200${val.poster_path}`}})
+        , []);
+
+    const showsPosters = props.tvPremiers.reduce((acc, val) =>
+        acc.concat({ image: { uri: `https://image.tmdb.org/t/p/w200${val.poster_path}` } })
+        , []);
 
     return (
         <View style={styles.SearchScreenContainer}>
@@ -36,10 +41,9 @@ console.log(imagesDupa)
                     <SectionParagraph>Jakiego rodzaju premier szukasz?</SectionParagraph>
                     <CategoryCardsList imagesUris={images} texts={texts} />
                     <SectionParagraph>Premiery kinowe w tym miesiącu</SectionParagraph>
-                    <PosterCardsList imagesUris={imagesDupa}  />
+                    <PosterCardsList imagesUris={moviesPosters} />
                     <SectionParagraph>Premiery telewizyjne w tym miesiącu</SectionParagraph>
-                    <PosterCardsList imagesUris={imagesDupa}/>
-
+                    <PosterCardsList imagesUris={showsPosters} />
                 </View>
             </ScrollView>
         </View>
