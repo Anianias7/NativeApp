@@ -11,7 +11,7 @@ const reducer = (state = initialState, { type, payload }) => {
         case actionTypes.GET_MOVIES_PREMIERS_DATA: {
             return {
                 ...state,
-                data: [...payload]
+                data: [...state.data, ...payload]
             }
         }
         case actionTypes.GET_MOVIES_PREMIERS_DATA_ERROR: {

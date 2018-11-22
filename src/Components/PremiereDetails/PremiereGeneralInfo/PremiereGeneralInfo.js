@@ -1,27 +1,24 @@
 import React from 'react'
-import { View, Image, Text} from 'react-native'
+import { View, Image, Text } from 'react-native'
 
+import styles from './PremiereGeneraInfo.style'
 
-const movie = {
-    imageUri: '../../../assets/images/titanic.jpg',
-    title: 'titanic',
-    premiers: '11.12.2018',
-    director: 'James Cameron',
-}
-
-const PremiereGeneralInfo = () => (
-    <View >
-        <Image src={require(movie.imageUri)}/>
-        <View>
-            <View>
-                <Text>Tytuł</Text>
-                <Text>{movie.title}</Text>
+const PremiereGeneralInfo = ({
+    imageUri,
+    title,
+    description,
+}) => {
+    return (
+        <View style={styles.GeneralInfoContainer}>
+            <View style={styles.PosterImageContainer}>
+                <Image source={imageUri} style={styles.PosterImage}/>
             </View>
-
+            <View style={styles.ContentContainer}>
+                <Text style={styles.Title}>{title}</Text>
+                <Text style={styles.Description} numberOfLines={7} ellipsizeMode='tail'>{description}</Text>
+            </View>
         </View>
-
-
-    </View>
-)
+    )
+}
 
 export default PremiereGeneralInfo;

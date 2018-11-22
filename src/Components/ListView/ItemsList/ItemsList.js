@@ -4,22 +4,27 @@ import { ScrollView } from 'react-native'
 import ListItem from '../ListItem/ListItem'
 import styles from './ItemsList.style'
 
-const ItemsList = (props) => {
+const ItemsList = ({
+    titles,
+    subtitles,
+    ids,
+    images,
+}) => {
+    console.log(images[0])
 
-    const movieItems = props.data.map((item, i) => {
+    const items = titles.map((title, i) => {
         return <ListItem
             itemId={i}
-            key={item.title}
-            id={item.id}
-            imageUri={item.image}
-            title={item.title}
-            year={item.year}
-            premiereDate={item.premiereDate} />
+            key={title + i}
+            id={ids && ids[i]}
+            imageUri={images[i].image}
+            title={title}
+            subtitle={subtitles[i]} />
     });
 
     return (
         <ScrollView style={styles.ItemsListContainer}>
-            {movieItems}
+            {items}
         </ScrollView>
     );
 }

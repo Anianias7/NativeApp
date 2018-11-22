@@ -7,13 +7,15 @@ import CategoryCard from '../CategoryCard/CategoryCard'
 
 const CategoryCardsList = ({
     imagesUris,
-    texts
+    texts,
+    onPress
 }) => {
 
     const cardsList = imagesUris.map((imageUri, i) =>
         <CategoryCard key={texts[i] + i}
             imageUri={imageUri.image}
-            text={texts[i]} />
+            text={texts[i]} 
+            onPress={onPress}/>
     );
 
     return (

@@ -2,13 +2,12 @@ export default {
     ItemContainer: {
         flexDirection: 'row',
         marginHorizontal: '0.5%',
-        marginVertical: '2%',
+        marginVertical: 2,
         backgroundColor: 'white',
         padding: 5,
         height: 120,
-        elevation: 20
+        elevation: 4
     },
-
     ItemImageContainer: {
         width: 80,
         height: 100,

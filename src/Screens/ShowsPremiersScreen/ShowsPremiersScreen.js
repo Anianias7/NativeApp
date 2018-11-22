@@ -1,8 +1,13 @@
 import React from 'react'
 import { View, StatusBar } from 'react-native';
 
+import {
+    getPremiersIds,
+    getPremiersImages,
+    getPremiersPremieresDates,
+    getPremiersTitles
+} from './ShowsPremiersUtils'
 import ItemsList from '../../Components/ListView/ItemsList/ItemsList'
-
 
 
 const ShowsPremiersScreen = (props) => (
@@ -12,7 +17,11 @@ const ShowsPremiersScreen = (props) => (
             barStyle="light-content"
         />
         <View>
-            <ItemsList data={props.showsPremiers} />
+            <ItemsList
+                titles={getPremiersTitles(props.showsPremiers)}
+                images={getPremiersImages(props.showsPremiers)}
+                ids={getPremiersIds(props.showsPremiers)}
+                subtitles={getPremiersPremieresDates(props.showsPremiers)} />
         </View>
     </View>
 

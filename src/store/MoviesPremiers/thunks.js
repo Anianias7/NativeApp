@@ -1,4 +1,4 @@
-import { getMovies } from '../../serivices/api/movieApi'
+import { getMovies, getCredits, getImages } from '../../serivices/api/movieApi'
 import {
     getMoviesPremeiersData,
     getMoviesPremeiersDataError,

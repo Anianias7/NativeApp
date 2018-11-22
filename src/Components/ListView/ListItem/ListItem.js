@@ -6,23 +6,22 @@ import styles from './ListItem.style'
 const ListItem = ({
     imageUri,
     title,
-    year,
-    premiereDate,
+    subtitle,
     itemId,
     id
 }) => {
-
-    return (<TouchableOpacity>
-        <View style={styles.ItemContainer}>
-            <View style={styles.ItemImageContainer}>
-                <Image source={imageUri} style={styles.ItemImage} />
+    return (
+        imageUri && <TouchableOpacity>
+            <View style={styles.ItemContainer}>
+                <View style={styles.ItemImageContainer}>
+                    <Image source={imageUri} style={styles.ItemImage} />
+                </View>
+                <View style={styles.ContentItemContainer}>
+                    <Text>{title}</Text>
+                    <Text>{subtitle}</Text>
+                </View>
             </View>
-            <View style={styles.ContentItemContainer}>
-                <Text>{`${title} (${year})`}</Text>
-                <Text>{`Premiere Date: ${premiereDate}`}</Text>
-            </View>
-        </View>
-    </TouchableOpacity>
+        </TouchableOpacity>
     );
 }
 

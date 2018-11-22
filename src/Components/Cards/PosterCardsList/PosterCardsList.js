@@ -7,11 +7,16 @@ import PosterCard from '../PosterCard/PosterCard'
 
 const PosterCardsList = ({
     imagesUris,
+    title,
+    subtitle
 }) => {
-
-    const cardsList = imagesUris.map((imageUri, i) =>
-        <PosterCard key={imageUri.image.uri + i}
-            imageUri={imageUri.image} />
+    const cardsList = imagesUris.map((imageUri, i) => {
+        return (<PosterCard
+            key={imageUri.image.uri + i}
+            imageUri={imageUri.image}
+            title={title && title[i]}
+            subtitle={subtitle && subtitle[i]} />)
+    }
     );
 
     return (

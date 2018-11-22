@@ -8,3 +8,11 @@ export const getShows = () => {
     return axios.get(createURL('/discover/tv', `with_original_language=en&first_air_date.gte=${startMonth}&first_air_date.lte=${endMonth}`))
         .then(response => response)
 }
+
+export const getShowCredits = (showId) => {
+    return axios.get(createURL(`/tv/${showId}/credits`, ''))
+}
+
+export const getShowImages = (showId) => {
+    return axios.get(createURL(`/tv/${showId}/images`, '&language=en-US'))
+}

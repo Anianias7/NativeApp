@@ -7,11 +7,12 @@ import Card from '../Card/Card'
 
 const PosterCard = ({
     imageUri,
-    text
+    title,
+    subtitle
 }) => (
         <TouchableOpacity>
             <View style={styles.PosterCardContainer}>
-                <Card imageUri={imageUri} />
+                <Card imageUri={imageUri} title={title} subtitle={subtitle}/>
             </View>
         </TouchableOpacity>
 

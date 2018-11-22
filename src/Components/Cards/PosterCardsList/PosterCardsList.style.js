@@ -1,5 +1,5 @@
 export default {
     PosterCardsListContainer: {
-        height: 160
+        height: 160,
     }
 }

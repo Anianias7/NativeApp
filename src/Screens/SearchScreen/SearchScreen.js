@@ -6,7 +6,7 @@ import styles from './SearchScreen.style'
 import SearchField from '../../Components/SearchView/SearchField/SearchField'
 import SectionParagraph from '../../Components/Fields/SectionParagraph/SectionParagraph'
 import PosterCardsList from '../../Components/Cards/PosterCardsList/PosterCardsList'
-import CategoryCardsList from '../../Components/Cards/CategoryCardsList/CategoryCardsList'
+import PremiersListButton from '../../Components/PremiersListButton/PremiersListButton'
 
 
 const SearchView = (props) => {
@@ -15,12 +15,20 @@ const SearchView = (props) => {
     const texts = ['Premiery filmowe', 'Premiery telewizyjne'];
 
     const moviesPosters = props.moviesPremiers.reduce((acc, val) =>
-        acc.concat({ image: { uri: `https://image.tmdb.org/t/p/w200${val.poster_path}`}})
+        acc.concat({ image: { uri: `https://image.tmdb.org/t/p/w200${val.poster_path}` } })
         , []);
 
     const showsPosters = props.tvPremiers.reduce((acc, val) =>
         acc.concat({ image: { uri: `https://image.tmdb.org/t/p/w200${val.poster_path}` } })
         , []);
+
+    const onMoviePremiersPress = () => {
+        props.navigation.navigate('MoviesPremiersScreen', { name: "Movies Premiers" })
+    }
+
+    const onTVPremiersPress = () => {
+        props.navigation.navigate('ShowsPremiersScreen', { name: "Shows Premiers" })
+    }
 
     return (
         <View style={styles.SearchScreenContainer}>
@@ -39,7 +47,17 @@ const SearchView = (props) => {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.SearchScreenContentContainer}>
                     <SectionParagraph>Jakiego rodzaju premier szukasz?</SectionParagraph>
-                    <CategoryCardsList imagesUris={images} texts={texts} />
+                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
+                        <PremiersListButton
+                            imageUri={images[0].image}
+                            title={texts[0]}
+                            onPress={onMoviePremiersPress} />
+                        <PremiersListButton
+                            imageUri={images[1].image}
+                            title={texts[1]}
+                            onPress={onTVPremiersPress} />
+
+                    </View>
                     <SectionParagraph>Premiery kinowe w tym miesiącu</SectionParagraph>
                     <PosterCardsList imagesUris={moviesPosters} />
                     <SectionParagraph>Premiery telewizyjne w tym miesiącu</SectionParagraph>

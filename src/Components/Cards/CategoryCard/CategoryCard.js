@@ -7,9 +7,10 @@ import Card from '../Card/Card'
 
 const CategoryCard = ({
     imageUri,
-    text
+    text,
+    onPress
 }) => (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
             <View style={styles.CategoryCardContainer}>
                 <Card imageUri={imageUri} text={text}/>
             </View>
