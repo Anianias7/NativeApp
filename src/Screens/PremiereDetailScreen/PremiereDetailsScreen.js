@@ -1,21 +1,20 @@
 import React from 'react'
-import { Text, View, ScrollView } from 'react-native'
+import { ScrollView, ToastAndroid } from 'react-native'
 import PropTypes from 'prop-types';
 
 import styles from './PremiereDetailsScreen.style'
 
-import PremiereReleaseDateHeader from '../../Components/PremiereDetails/PremiereReleaseDateHeader/PremiereReleaseDateHeader'
+import axios from '../../axios/axios-premiers'
+import PremiereDetailsHeader from '../../Components/PremiereDetails/PremiereDetailsHeader/PremiereDetailsHeader'
 import PremiereGeneralInfo from '../../Components/PremiereDetails/PremiereGeneralInfo/PremiereGeneralInfo'
 import PremiereRatesSections from '../../Components/PremiereDetails/PremiereRatesSection/PremiereRatesSection'
 import DetailsSection from '../../Components/PremiereDetails/DetailsSection/DetailsSection'
 import PosterCardList from '../../Components/Cards/PosterCardsList/PosterCardsList'
 import Spinner from '../../Components/Spinner/Spinner'
 import ItemsList from '../../Components/ListView/ItemsList/ItemsList'
-
-import { getMovieCredits, getMovieImages } from '../../serivices/api/movieApi'
-import { getShowCredits, getShowImages } from '../../serivices/api/showsApi'
+import PremiereDescriptionPopout from '../../Components/Popup/PremiereDescriptionPopout/PremiereDescriptionPopout'
+import ShowMoreButton from '../../Components/ShowMoreButton/ShowMoreButton'
 import {
-    getCreditsData,
     getSelectedCastData,
     getSelectedCrewData,
     getCastUris,
@@ -31,50 +30,97 @@ import {
 class PremiereDetailsScreen extends React.Component {
 
     state = {
+        type: this.props.navigation.state.params.type,
         cast: null,
         crew: null,
         images: null,
-        loading: true
+        data: this.props.data.find(item => item.id === this.props.navigation.state.params.id),
+        loading: true,
+        showPopup: false
     }
 
     componentDidMount() {
         let credits, images;
-        const id = 338952;
-        let type = 'movie'
-        if (type === 'movie') {
-            Promise
-                .all([getMovieImages(id), getMovieCredits(id)])
-                .then(response => {
-                    credits = response[1].data;
-                    images = response[0].data
-                    this.setState({
-                        cast: getSelectedCastData(credits.cast),
-                        crew: getSelectedCrewData(credits.crew),
-                        images: getSelectedBackdropsData(images.posters),
-                        loading: false
-                    })
+        Promise
+            .all([this.props.premiereService.getImages(this.props.navigation.state.params.id),
+            this.props.premiereService.getCredits(this.props.navigation.state.params.id)])
+            .then(response => {
+                credits = response[1].data;
+                images = response[0].data
+                this.setState({
+                    cast: getSelectedCastData(credits.cast),
+                    crew: getSelectedCrewData(credits.crew),
+                    images: getSelectedBackdropsData(images.posters),
+                    loading: false
                 })
-        }
+            })
+    }
 
+    onShowCast = () => {
+        this.props.navigation.navigate('CastListScreen', {
+            titles: getCastNames(this.state.cast),
+            images: getCastUris(this.state.cast),
+            subtitles: getCastCharacterNames(this.state.cast),
+        })
+    }
+
+    onShowCrew = () => {
+        this.props.navigation.navigate('CrewListScreen', {
+            titles: getCrewNames(this.state.crew),
+            images: getCrewUris(this.state.crew),
+            subtitles: getCrewJobTitles(this.state.crew),
+        })
+    }
+
+    onButtonClick = () => {
+        const premiereData = {
+            cast: this.state.cast,
+            crew: this.state.crew,
+            images: this.state.images,
+            data: this.state.data
+        }
+        const url = this.state.type === 'movie' ? '/movies.json' : '/tv.json'
+
+        axios.post(url, premiereData)
+            .then(() =>
+                ToastAndroid.showWithGravity(
+                    'Saved',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.BOTTOM,
+                ))
+            .catch(() =>
+                ToastAndroid.showWithGravity(
+                    'Not Saved',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.BOTTOM,
+                ))
+    }
+
+    onDescriptionPress = () => {
+        this.setState({
+            showPopup: true
+        })
+    }
+
+    onPopoutClose = () => {
+        this.setState({
+            showPopup: false
+        })
     }
 
     render() {
-        let data = null;
-        let type = 'movie'
-        if (type === 'movie')
-            data = this.props.movieData.filter(item => item.id === 338952)[0];
-        else if (this.props.type === 'tv')
-            data = this.props.tvData.filter(item => item.id === 338952)[0]
-
         return (
-            this.state.loading ? <Spinner /> :
-                <ScrollView style={styles.PremiereDetailsContainer}>
-                    <PremiereReleaseDateHeader releaseDate={data.premiereDate} />
+            this.state.loading ?
+                <Spinner /> :
+                <ScrollView style={styles.PremiereDetailsContainer} showsVerticalScrollIndicator={false}>
+                    <PremiereDetailsHeader releaseDate={this.state.data.premiereDate} onButtonPress={this.onButtonClick} />
                     <PremiereGeneralInfo
-                        imageUri={data.image}
-                        title={data.title}
-                        description={data.overview} />
-                    <PremiereRatesSections rate={data.vote_average} />
+                        imageUri={this.state.data.image}
+                        title={this.state.data.title}
+                        description={this.state.data.overview}
+                        onDescriptionPress={this.onDescriptionPress}
+                    />
+                    <PremiereRatesSections rate={this.state.data.voteAverage} />
                     <DetailsSection sectionTitle='Posters'>
                         <PosterCardList
                             imagesUris={this.state.images}
@@ -85,13 +131,20 @@ class PremiereDetailsScreen extends React.Component {
                             titles={getCastNames(this.state.cast).slice(0, 4)}
                             images={getCastUris(this.state.cast).slice(0, 4)}
                             subtitles={getCastCharacterNames(this.state.cast).slice(0, 4)} />
+                        <ShowMoreButton onShowMore={this.onShowCast} />
                     </DetailsSection>
                     <DetailsSection sectionTitle='Crew'>
                         <ItemsList
                             titles={getCrewNames(this.state.crew).slice(0, 4)}
                             images={getCrewUris(this.state.crew).slice(0, 4)}
                             subtitles={getCrewJobTitles(this.state.crew).slice(0, 4)} />
+                        <ShowMoreButton onShowMore={this.onShowCrew} />
                     </DetailsSection>
+                    <PremiereDescriptionPopout
+                        visible={this.state.showPopup}
+                        onPopoutClose={this.onPopoutClose}
+                        title='Overview'
+                        description={this.state.data.overview} />
                 </ScrollView >
         )
     }

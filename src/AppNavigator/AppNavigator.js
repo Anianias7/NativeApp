@@ -1,10 +1,11 @@
-import React from 'react'
 import { createStackNavigator } from 'react-navigation';
-import { View } from 'react-native'
 
 import Navigator from '../Screens/Navigator'
 import MoviesPremiersScreen from '../Screens/MoviesPremiersScreen/MoviesPremiersScreenContainer'
 import ShowsPremiersScreen from '../Screens/ShowsPremiersScreen/ShowsPremiersScreenContainer'
+import CastListScreen from '../Screens/PremiereDetailScreen/CastListScreen/CastListScreen'
+import CrewListScreen from '../Screens/PremiereDetailScreen/CrewListScreen/CrewListScreen'
+import PremiereDetailsScreen from '../Screens/PremiereDetailScreen/PremiereDetailsScreenContainer'
 
 const AppNavigator = createStackNavigator({
     Navigator: {
@@ -24,8 +25,25 @@ const AppNavigator = createStackNavigator({
         navigationOptions: {
             headerTitle: "Shows Premiers"
         }
-    }
-
+    },
+    CastListScreen: {
+        screen: CastListScreen,
+        navigationOptions: {
+            headerTitle: "Cast Members"
+        }
+    },
+    CrewListScreen: {
+        screen: CrewListScreen,
+        navigationOptions: {
+            headerTitle: "Crew Members"
+        }
+    },
+    PremiereDetailsScreen: {
+        screen: PremiereDetailsScreen,
+        navigationOptions: {
+            header: null
+        }
+    },
 })
 
 export default AppNavigator;

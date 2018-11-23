@@ -1,5 +1,4 @@
 import React from 'react'
-import { View, StatusBar } from 'react-native';
 
 import {
     getPremiersIds,
@@ -7,24 +6,26 @@ import {
     getPremiersPremieresDates,
     getPremiersTitles
 } from './ShowsPremiersUtils'
-import ItemsList from '../../Components/ListView/ItemsList/ItemsList'
+import ListScreen from '../ListScreen/ListScreen'
 
 
-const ShowsPremiersScreen = (props) => (
-    <View style={{ backgroundColor: 'white', height: '100%', width: '100%' }}>
-        <StatusBar
-            backgroundColor="black"
-            barStyle="light-content"
-        />
-        <View>
-            <ItemsList
-                titles={getPremiersTitles(props.showsPremiers)}
-                images={getPremiersImages(props.showsPremiers)}
-                ids={getPremiersIds(props.showsPremiers)}
-                subtitles={getPremiersPremieresDates(props.showsPremiers)} />
-        </View>
-    </View>
+const ShowsPremiersScreen = (props) => {
 
-);
+    const onShowSeriesDetails = (seriesId) => {
+        props.navigation.navigate('PremiereDetailsScreen', {
+            type: 'tv',
+            id: seriesId
+        })
+    }
+
+    return (
+        <ListScreen
+            onShowDetails={onShowSeriesDetails}
+            titles={getPremiersTitles(props.showsPremiers)}
+            images={getPremiersImages(props.showsPremiers)}
+            ids={getPremiersIds(props.showsPremiers)}
+            subtitles={getPremiersPremieresDates(props.showsPremiers)} />
+    );
+}
 
 export default ShowsPremiersScreen;

@@ -1,9 +1,9 @@
 export default {
     DetailsSectionContainer: {
-        borderTopColor: '#ededed',
+        borderTopColor: 'white',
         borderTopWidth: 1,
         paddingTop: 10,
-        marginTop: 30,
+        marginTop: 20,
         flex: 1,
     },
     DetailsSectionTitle: {

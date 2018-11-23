@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, Text } from 'react-native'
+import { View, Image, Text, TouchableOpacity } from 'react-native'
 
 import styles from './PremiereGeneraInfo.style'
 
@@ -7,6 +7,7 @@ const PremiereGeneralInfo = ({
     imageUri,
     title,
     description,
+    onDescriptionPress
 }) => {
     return (
         <View style={styles.GeneralInfoContainer}>
@@ -15,7 +16,9 @@ const PremiereGeneralInfo = ({
             </View>
             <View style={styles.ContentContainer}>
                 <Text style={styles.Title}>{title}</Text>
-                <Text style={styles.Description} numberOfLines={7} ellipsizeMode='tail'>{description}</Text>
+                <TouchableOpacity onPress={onDescriptionPress}>
+                    <Text style={styles.Description} numberOfLines={7} ellipsizeMode='tail'>{description}</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )

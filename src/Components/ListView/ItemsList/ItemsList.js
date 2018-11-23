@@ -9,9 +9,8 @@ const ItemsList = ({
     subtitles,
     ids,
     images,
+    onShowDetails
 }) => {
-    console.log(images[0])
-
     const items = titles.map((title, i) => {
         return <ListItem
             itemId={i}
@@ -19,7 +18,8 @@ const ItemsList = ({
             id={ids && ids[i]}
             imageUri={images[i].image}
             title={title}
-            subtitle={subtitles[i]} />
+            subtitle={subtitles[i]}
+            onShowDetails={onShowDetails} />
     });
 
     return (

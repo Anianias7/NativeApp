@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
 import PremiereDetailsScreen from './PremiereDetailsScreen'
+import { getPremiersDetails } from '../../serivices/premiereService'
 
 const getSelectedMovieData = (data) => {
     return data.reduce((selectedData, item) =>
@@ -10,7 +11,7 @@ const getSelectedMovieData = (data) => {
             premiereDate: item.release_date,
             year: item.release_date.split('-')[0],
             overview: item.overview,
-            vote_average: item.vote_average,
+            voteAverage: item.vote_average,
             image: {
                 uri: `https://image.tmdb.org/t/p/w200${item.poster_path}`
             }
@@ -34,9 +35,12 @@ const getSelectedTVData = (data) => {
         , [])
 }
 
-const mapStateToProps = (state) => ({
-    movieData: getSelectedMovieData(state.moviesPremiers.data),
-    tvData: getSelectedTVData(state.showsPremiers.data)
+
+const mapStateToProps = (state, ownProps) => ({
+    premiereService: getPremiersDetails(ownProps.navigation.state.params.type),
+    data: ownProps.navigation.state.params.type === 'movie' ?
+        getSelectedMovieData(state.moviesPremiers.data) :
+        getSelectedTVData(state.showsPremiers.data)
 })
 
 export default connect(mapStateToProps)(PremiereDetailsScreen);

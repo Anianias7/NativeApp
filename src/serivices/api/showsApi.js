@@ -14,5 +14,5 @@ export const getShowCredits = (showId) => {
 }
 
 export const getShowImages = (showId) => {
-    return axios.get(createURL(`/tv/${showId}/images`, '&language=en-US'))
+    return axios.get(`https://api.themoviedb.org/3/tv/${showId}/images?api_key=969df4a41c3c11dd391c3744c67609b9`)
 }

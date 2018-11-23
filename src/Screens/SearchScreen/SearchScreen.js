@@ -18,16 +18,38 @@ const SearchView = (props) => {
         acc.concat({ image: { uri: `https://image.tmdb.org/t/p/w200${val.poster_path}` } })
         , []);
 
+    const moviesIds = props.moviesPremiers.reduce((acc, val) =>
+        acc.concat({ id: val.id })
+        , []);
+
     const showsPosters = props.tvPremiers.reduce((acc, val) =>
         acc.concat({ image: { uri: `https://image.tmdb.org/t/p/w200${val.poster_path}` } })
         , []);
 
-    const onMoviePremiersPress = () => {
-        props.navigation.navigate('MoviesPremiersScreen', { name: "Movies Premiers" })
+    const showsIds = props.tvPremiers.reduce((acc, val) =>
+        acc.concat({ id: val.id})
+        , []);
+
+    const onShowMoviePremiers = () => {
+        props.navigation.navigate('MoviesPremiersScreen')
     }
 
-    const onTVPremiersPress = () => {
-        props.navigation.navigate('ShowsPremiersScreen', { name: "Shows Premiers" })
+    const onShowTVPremiers = () => {
+        props.navigation.navigate('ShowsPremiersScreen')
+    }
+
+    const onShowMovieDetails = (movieId) => {
+        props.navigation.navigate('PremiereDetailsScreen', {
+            type: 'movie',
+            id: movieId
+        })
+    }
+
+    const onShowSeriesDetails = (seriesId) => {
+        props.navigation.navigate('PremiereDetailsScreen', {
+            type: 'tv',
+            id: seriesId
+        })
     }
 
     return (
@@ -47,21 +69,27 @@ const SearchView = (props) => {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.SearchScreenContentContainer}>
                     <SectionParagraph>Jakiego rodzaju premier szukasz?</SectionParagraph>
-                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around' }}>
                         <PremiersListButton
                             imageUri={images[0].image}
                             title={texts[0]}
-                            onPress={onMoviePremiersPress} />
+                            onPress={onShowMoviePremiers} />
                         <PremiersListButton
                             imageUri={images[1].image}
                             title={texts[1]}
-                            onPress={onTVPremiersPress} />
+                            onPress={onShowTVPremiers} />
 
                     </View>
                     <SectionParagraph>Premiery kinowe w tym miesiącu</SectionParagraph>
-                    <PosterCardsList imagesUris={moviesPosters} />
+                    <PosterCardsList
+                        imagesUris={moviesPosters}
+                        ids={moviesIds}
+                        onShowDetails={onShowMovieDetails} />
                     <SectionParagraph>Premiery telewizyjne w tym miesiącu</SectionParagraph>
-                    <PosterCardsList imagesUris={showsPosters} />
+                    <PosterCardsList
+                        imagesUris={showsPosters}
+                        ids={showsIds}
+                        onShowDetails={onShowSeriesDetails} />
                 </View>
             </ScrollView>
         </View>

@@ -8,16 +8,19 @@ import PosterCard from '../PosterCard/PosterCard'
 const PosterCardsList = ({
     imagesUris,
     title,
-    subtitle
+    subtitle,
+    ids,
+    onShowDetails,
 }) => {
     const cardsList = imagesUris.map((imageUri, i) => {
         return (<PosterCard
             key={imageUri.image.uri + i}
+            id={ids && ids[i].id}
             imageUri={imageUri.image}
             title={title && title[i]}
-            subtitle={subtitle && subtitle[i]} />)
-    }
-    );
+            subtitle={subtitle && subtitle[i]}
+            onShowDetails={onShowDetails} />)
+    });
 
     return (
         <ScrollView horizontal={true}

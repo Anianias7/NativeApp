@@ -3,11 +3,10 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { createBottomTabNavigator } from 'react-navigation'
 import SearchScreenContainer from '../Screens/SearchScreen/SearchScreenContainer'
-// import MoviesScreen from './src/Screens/MoviesScreen/MoviesScreen'
+import UserMoviesScreen from '../Screens/UserMoviesScreen/UserMoviesScreenContainer'
+
 import MoviesPremiersScreen from '../Screens/MoviesPremiersScreen/MoviesPremiersScreenContainer'
-// import ShowsScreen from './src/Screens/ShowsScreen/ShowsScreen'
 import ShowsPremiersScreen from '../Screens/ShowsPremiersScreen/ShowsPremiersScreenContainer'
-import PremiereDetailsScreen from '../Screens/PremiereDetailScreen/PremiereDetailsScreenContainer'
 
 export default createBottomTabNavigator({
     Search: {
@@ -20,7 +19,7 @@ export default createBottomTabNavigator({
         }
     },
     Movies: {
-        screen: MoviesPremiersScreen,
+        screen: UserMoviesScreen,
         navigationOptions: {
             tabBarLabel: 'MOVIES',
             tabBarIcon: ({ tintColor }) => (
@@ -32,15 +31,6 @@ export default createBottomTabNavigator({
         screen: ShowsPremiersScreen,
         navigationOptions: {
             tabBarLabel: 'SHOWS',
-            tabBarIcon: ({ tintColor }) => (
-                <Icon name="tv" color={tintColor} size={26} />
-            )
-        }
-    },
-    Detail: {
-        screen: PremiereDetailsScreen,
-        navigationOptions: {
-            tabBarLabel: 'Detail',
             tabBarIcon: ({ tintColor }) => (
                 <Icon name="tv" color={tintColor} size={26} />
             )

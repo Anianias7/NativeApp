@@ -14,5 +14,5 @@ export const getMovieCredits = (movieId) => {
 }
 
 export const getMovieImages = (movieId) => {
-    return axios.get('https://api.themoviedb.org/3/movie/338952/images?api_key=969df4a41c3c11dd391c3744c67609b9')
+    return axios.get(`https://api.themoviedb.org/3/movie/${movieId}/images?api_key=969df4a41c3c11dd391c3744c67609b9`)
 }

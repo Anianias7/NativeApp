@@ -8,26 +8,24 @@ import {
     getPremiersTitles
 } from './MoviesPremiersUtils'
 
-import ItemsList from '../../Components/ListView/ItemsList/ItemsList'
-
-
+import ListScreen from '../ListScreen/ListScreen'
 
 const MoviesPremiersScreen = (props) => {
-    console.log(props)
+
+    const onShowMovieDetails = (movieId) => {
+        props.navigation.navigate('PremiereDetailsScreen', {
+            type: 'movie',
+            id: movieId
+        })
+    }
+
     return (
-        <View style={{ backgroundColor: 'white', height: '100%', width: '100%' }}>
-            <StatusBar
-                backgroundColor="black"
-                barStyle="light-content"
-            />
-            <View>
-                <ItemsList
-                    titles={getPremiersTitles(props.moviesPremiers)}
-                    images={getPremiersImages(props.moviesPremiers)}
-                    ids={getPremiersIds(props.moviesPremiers)}
-                    subtitles={getPremiersPremieresDates(props.moviesPremiers)} />
-            </View>
-        </View>
+        <ListScreen
+            onShowDetails={onShowMovieDetails}
+            titles={getPremiersTitles(props.moviesPremiers)}
+            images={getPremiersImages(props.moviesPremiers)}
+            ids={getPremiersIds(props.moviesPremiers)}
+            subtitles={getPremiersPremieresDates(props.moviesPremiers)} />
 
     );
 }

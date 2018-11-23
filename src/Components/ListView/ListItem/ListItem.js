@@ -7,11 +7,12 @@ const ListItem = ({
     imageUri,
     title,
     subtitle,
+    onShowDetails,
     itemId,
     id
 }) => {
     return (
-        imageUri && <TouchableOpacity>
+        imageUri && <TouchableOpacity onPress={() => onShowDetails(id)}>
             <View style={styles.ItemContainer}>
                 <View style={styles.ItemImageContainer}>
                     <Image source={imageUri} style={styles.ItemImage} />
