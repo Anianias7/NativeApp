@@ -16,14 +16,12 @@ const ListScreen = ({
                 backgroundColor="black"
                 barStyle="light-content"
             />
-            <View>
                 <ItemsList
                     onShowDetails={onShowDetails}
                     titles={titles}
                     images={images}
                     ids={ids}
                     subtitles={subtitles} />
-            </View>
         </View>
 
     );

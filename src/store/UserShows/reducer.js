@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes'
 
 const initialState = {
-    userMoviesData: [],
+    data: [],
     loading: true,
     error: null,
     shouldUpdateList: false,
@@ -9,27 +9,27 @@ const initialState = {
 
 const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
-        case actionTypes.GET_USER_MOVIES_PREMIERS_DATA: {
+        case actionTypes.GET_USER_TV_PREMIERS_DATA: {
             return {
                 ...state,
-                userMoviesData: [...payload],
+                data: [...payload],
                 shouldUpdateList: false,
             }
         }
-        case actionTypes.ADD_MOVIE_TO_LIST: {
+        case actionTypes.ADD_SHOW_TO_LIST: {
             return {
                 ...state,
                 shouldUpdateList: true
             }
         }
-        case actionTypes.GET_USER_MOVIES_PREMIERS_DATA_ERROR: {
+        case actionTypes.GET_USER_TV_PREMIERS_DATA_ERROR: {
             return {
                 ...state,
                 error: payload,
                 loading: true
             }
         }
-        case actionTypes.GET_USER_MOVIES_PREMIERS_DATA_LOADING: {
+        case actionTypes.GET_USER_TV_PREMIERS_DATA_LOADING: {
             return {
                 ...state,
                 loading: false

@@ -6,15 +6,16 @@ import styles from './PremiereDetailsHeader.style'
 const PremiereDetailsHeader = ({
     releaseDate,
     onButtonPress,
+    showButton
 }) => (
         <View style={styles.HeaderContainer}>
             <View style={styles.releaseDateContainer}>
                 <Text style={[styles.HeaderText, styles.HeaderPremiereText]}>PREMIERS AT: </Text>
                 <Text style={styles.HeaderText}>{releaseDate}</Text>
             </View>
-            <TouchableOpacity onPress={onButtonPress} style={styles.HeaderButton}>
+            {showButton && <TouchableOpacity onPress={onButtonPress} style={styles.HeaderButton}>
                 <Text style={styles.HeaderButtonText}>ADD TO LIST</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>}
         </View>
 
     )

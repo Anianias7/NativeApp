@@ -2,7 +2,10 @@ import { connect } from 'react-redux'
 
 import PremiereDetailsScreen from './PremiereDetailsScreen'
 import { getPremiersDetails } from '../../serivices/premiereService'
+import { movieWasAdded } from '../../store/UserMovies/actions'
+import { showWasAdded } from '../../store/UserShows/actions'
 
+//wszystkie
 const getSelectedMovieData = (data) => {
     return data.reduce((selectedData, item) =>
         selectedData.concat({
@@ -19,6 +22,7 @@ const getSelectedMovieData = (data) => {
         , [])
 }
 
+//wszystkie
 const getSelectedTVData = (data) => {
     return data.reduce((selectedData, item) =>
         selectedData.concat({
@@ -35,12 +39,23 @@ const getSelectedTVData = (data) => {
         , [])
 }
 
+const getUserMoviesIds = (data) => {
+    return data.reduce((indexes, movie) => indexes.concat(movie.data.id), [])
+}
 
+// //users
 const mapStateToProps = (state, ownProps) => ({
+    userMoviesIndexes: getUserMoviesIds(state.userMovies.userMoviesData),
+    userMovies: state.userMovies.userMoviesData,
     premiereService: getPremiersDetails(ownProps.navigation.state.params.type),
     data: ownProps.navigation.state.params.type === 'movie' ?
         getSelectedMovieData(state.moviesPremiers.data) :
-        getSelectedTVData(state.showsPremiers.data)
+        getSelectedTVData(state.showsPremiers.data),
 })
 
-export default connect(mapStateToProps)(PremiereDetailsScreen);
+const mapDispatchToProps = {
+    movieWasAdded,
+    showWasAdded
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PremiereDetailsScreen);

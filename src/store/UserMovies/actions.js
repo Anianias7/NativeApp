@@ -13,3 +13,13 @@ export const getUserMoviesPremeiersDataError = errorMsg => ({
 export const getUserMoviesPremeiersDataLoading = () => ({
     type: actionTypes.GET_USER_MOVIES_PREMIERS_DATA_LOADING
 })
+
+export const addMovieToList = movieData => ({
+    type: actionTypes.ADD_MOVIE_TO_LIST,
+    payload: movieData
+})
+
+
+export const movieWasAdded = () => ({
+    type: actionTypes.ADD_MOVIE_TO_LIST,
+})

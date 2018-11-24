@@ -11,7 +11,7 @@ const ItemsList = ({
     images,
     onShowDetails
 }) => {
-    const items = titles.map((title, i) => {
+    const items = titles && titles.map((title, i) => {
         return <ListItem
             itemId={i}
             key={title + i}

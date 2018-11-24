@@ -4,9 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { createBottomTabNavigator } from 'react-navigation'
 import SearchScreenContainer from '../Screens/SearchScreen/SearchScreenContainer'
 import UserMoviesScreen from '../Screens/UserMoviesScreen/UserMoviesScreenContainer'
-
-import MoviesPremiersScreen from '../Screens/MoviesPremiersScreen/MoviesPremiersScreenContainer'
-import ShowsPremiersScreen from '../Screens/ShowsPremiersScreen/ShowsPremiersScreenContainer'
+import UserTVScreen from '../Screens/UserTVScreen/UserTVScreenContainer'
 
 export default createBottomTabNavigator({
     Search: {
@@ -20,21 +18,21 @@ export default createBottomTabNavigator({
     },
     Movies: {
         screen: UserMoviesScreen,
-        navigationOptions: {
+        navigationOptions: ({
             tabBarLabel: 'MOVIES',
             tabBarIcon: ({ tintColor }) => (
                 <Icon name="film" color={tintColor} size={24} />
-            )
-        },
+            ),
+        })
     },
     Shows: {
-        screen: ShowsPremiersScreen,
+        screen: UserTVScreen,
         navigationOptions: {
             tabBarLabel: 'SHOWS',
             tabBarIcon: ({ tintColor }) => (
                 <Icon name="tv" color={tintColor} size={26} />
             )
-        }
+        },
     },
 }, {
         tabBarOptions: {
@@ -45,6 +43,7 @@ export default createBottomTabNavigator({
                 padding: 5,
                 borderTopWidth: 0,
                 backgroundColor: 'rgba(189,189,189,0.6)',
-            }
+            },
         }
-    })
+    },
+)

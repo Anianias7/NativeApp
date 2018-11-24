@@ -5,12 +5,13 @@ import {
     getUserMoviesPremeiersDataLoading
 } from './actions'
 
+
 export const getUserMoviesPremiers = () => async (dispatch) => {
     return getUserMovies().then(response => {
-        console.log("RESPONSE ", response)
-        dispatch(getUserMoviesPremeiersData(response.data));
+        dispatch(getUserMoviesPremeiersData(Object.values(response.data)));
         dispatch(getUserMoviesPremeiersDataLoading());
     }).catch(error => {
         dispatch(getUserMoviesPremeiersDataError(error));
     })
 }
+

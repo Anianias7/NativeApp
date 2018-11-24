@@ -34,26 +34,40 @@ class PremiereDetailsScreen extends React.Component {
         cast: null,
         crew: null,
         images: null,
-        data: this.props.data.find(item => item.id === this.props.navigation.state.params.id),
+        data: null,
         loading: true,
         showPopup: false
     }
 
     componentDidMount() {
-        let credits, images;
-        Promise
-            .all([this.props.premiereService.getImages(this.props.navigation.state.params.id),
-            this.props.premiereService.getCredits(this.props.navigation.state.params.id)])
-            .then(response => {
-                credits = response[1].data;
-                images = response[0].data
-                this.setState({
-                    cast: getSelectedCastData(credits.cast),
-                    crew: getSelectedCrewData(credits.crew),
-                    images: getSelectedBackdropsData(images.posters),
-                    loading: false
-                })
+        if (this.props.userMoviesIndexes.includes(this.props.navigation.state.params.id)){
+            const movieData = this.props.userMovies.find(movie => movie.data.id === this.props.navigation.state.params.id)
+            console.log("MOVIE DATA ", movieData)
+            this.setState({
+                cast: movieData.cast,
+                crew: movieData.crew,
+                images: movieData.images,
+                data: movieData.data,
+                loading: false
             })
+        }
+        else {
+            let credits, images;
+            Promise
+                .all([this.props.premiereService.getImages(this.props.navigation.state.params.id),
+                this.props.premiereService.getCredits(this.props.navigation.state.params.id)])
+                .then(response => {
+                    credits = response[1].data;
+                    images = response[0].data
+                    this.setState({
+                        cast: getSelectedCastData(credits.cast),
+                        crew: getSelectedCrewData(credits.crew),
+                        images: getSelectedBackdropsData(images.posters),
+                        data: this.props.data.find(item => item.id === this.props.navigation.state.params.id),
+                        loading: false
+                    })
+                })
+        }
     }
 
     onShowCast = () => {
@@ -80,20 +94,23 @@ class PremiereDetailsScreen extends React.Component {
             data: this.state.data
         }
         const url = this.state.type === 'movie' ? '/movies.json' : '/tv.json'
-
         axios.post(url, premiereData)
-            .then(() =>
-                ToastAndroid.showWithGravity(
+            .then(() => {
+                this.props.movieWasAdded();
+                this.props.showWasAdded();
+                return ToastAndroid.showWithGravity(
                     'Saved',
                     ToastAndroid.SHORT,
                     ToastAndroid.BOTTOM,
-                ))
-            .catch(() =>
-                ToastAndroid.showWithGravity(
+                )
+            })
+            .catch(err => {
+                return ToastAndroid.showWithGravity(
                     'Not Saved',
                     ToastAndroid.SHORT,
                     ToastAndroid.BOTTOM,
-                ))
+                )
+            })
     }
 
     onDescriptionPress = () => {
@@ -113,7 +130,10 @@ class PremiereDetailsScreen extends React.Component {
             this.state.loading ?
                 <Spinner /> :
                 <ScrollView style={styles.PremiereDetailsContainer} showsVerticalScrollIndicator={false}>
-                    <PremiereDetailsHeader releaseDate={this.state.data.premiereDate} onButtonPress={this.onButtonClick} />
+                    <PremiereDetailsHeader
+                        releaseDate={this.state.data.premiereDate}
+                        onButtonPress={this.onButtonClick}
+                        showButton={!this.props.userMoviesIndexes.includes(this.props.navigation.state.params.id)}/>
                     <PremiereGeneralInfo
                         imageUri={this.state.data.image}
                         title={this.state.data.title}

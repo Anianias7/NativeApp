@@ -8,21 +8,22 @@ import {
     getPremiersImages,
     getPremiersPremieresDates,
     getPremiersTitles
-} from '../MoviesPremiersScreen/MoviesPremiersUtils'
+} from '../ShowsPremiersScreen/ShowsPremiersUtils'
 
 
-class UserMoviesScreen extends Component {
+class UserTVScreen extends Component {
 
-    onShowMovieDetails = (movieId) => {
+    onShowMovieDetails = (showId) => {
         props.navigation.navigate('PremiereDetailsScreen', {
-            type: 'movie',
-            id: movieId,
+            type: 'tv',
+            id: showId,
             dataSource: 'user'
         })
     }
 
     render() {
         return (
+
             <ListScreen
                 onShowDetails={this.onShowMovieDetails}
                 titles={getPremiersTitles(this.props.data)}
@@ -34,4 +35,4 @@ class UserMoviesScreen extends Component {
 
 }
 
-export default UserMoviesScreen;
+export default UserTVScreen;
