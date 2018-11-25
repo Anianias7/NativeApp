@@ -14,7 +14,7 @@ import {
 class UserTVScreen extends Component {
 
     onShowMovieDetails = (showId) => {
-        props.navigation.navigate('PremiereDetailsScreen', {
+        this.props.navigation.navigate('PremiereDetailsScreen', {
             type: 'tv',
             id: showId,
             dataSource: 'user'

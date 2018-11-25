@@ -40,14 +40,13 @@ class PremiereDetailsScreen extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.userMoviesIndexes.includes(this.props.navigation.state.params.id)){
-            const movieData = this.props.userMovies.find(movie => movie.data.id === this.props.navigation.state.params.id)
-            console.log("MOVIE DATA ", movieData)
+        if (this.props.userPremiersIndexes.includes(this.props.navigation.state.params.id)){
+            const premiereData = this.props.userPremiers.find(movie => movie.data.id === this.props.navigation.state.params.id)
             this.setState({
-                cast: movieData.cast,
-                crew: movieData.crew,
-                images: movieData.images,
-                data: movieData.data,
+                cast: premiereData.cast,
+                crew: premiereData.crew,
+                images: premiereData.images,
+                data: premiereData.data,
                 loading: false
             })
         }
@@ -133,7 +132,7 @@ class PremiereDetailsScreen extends React.Component {
                     <PremiereDetailsHeader
                         releaseDate={this.state.data.premiereDate}
                         onButtonPress={this.onButtonClick}
-                        showButton={!this.props.userMoviesIndexes.includes(this.props.navigation.state.params.id)}/>
+                        showButton={!this.props.userPremiersIndexes.includes(this.props.navigation.state.params.id)}/>
                     <PremiereGeneralInfo
                         imageUri={this.state.data.image}
                         title={this.state.data.title}

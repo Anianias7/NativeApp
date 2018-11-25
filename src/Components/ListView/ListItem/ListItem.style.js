@@ -6,7 +6,8 @@ export default {
         backgroundColor: 'white',
         padding: 5,
         height: 120,
-        elevation: 4
+        zIndex: 400,
+        elevation: 2
     },
     ItemImageContainer: {
         width: 80,

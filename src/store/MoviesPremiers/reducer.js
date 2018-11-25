@@ -11,7 +11,16 @@ const reducer = (state = initialState, { type, payload }) => {
         case actionTypes.GET_MOVIES_PREMIERS_DATA: {
             return {
                 ...state,
-                data: [...state.data, ...payload]
+                data: [...payload.map(item => ({
+                    ...item,
+                    image: {
+                        uri: `https://image.tmdb.org/t/p/w200${item.poster_path}`,
+                    },
+                    premiereDate: item.release_date,
+                    voteAverage: item.vote_average,
+                    year: item.release_date.split('-')[0],
+                    type: 'movie'
+                }))]
             }
         }
         case actionTypes.GET_MOVIES_PREMIERS_DATA_ERROR: {

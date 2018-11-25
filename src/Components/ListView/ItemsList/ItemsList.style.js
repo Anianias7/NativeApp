@@ -1,5 +1,6 @@
 export default {
     ItemsListContainer: {
-        backgroundColor: '#ededed'
+        backgroundColor: '#ededed',
+        marginHorizontal: '1%'
     },
 }

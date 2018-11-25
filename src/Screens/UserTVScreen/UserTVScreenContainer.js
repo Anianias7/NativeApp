@@ -7,7 +7,7 @@ const getTVData = (data) => {
 }
 
 const mapStateToProps = state => ({
-    data: getTVData(state.userShows.data),
+    data: getTVData(state.userShows.usersShowData),
 })
 
 

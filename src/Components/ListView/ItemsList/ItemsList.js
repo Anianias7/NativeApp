@@ -23,7 +23,7 @@ const ItemsList = ({
     });
 
     return (
-        <ScrollView style={styles.ItemsListContainer}>
+        <ScrollView keyboardShouldPersistTaps={"always"} style={styles.ItemsListContainer}>
             {items}
         </ScrollView>
     );

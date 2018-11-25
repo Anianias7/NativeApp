@@ -27,6 +27,7 @@ const getSelectedData = (data) => {
 }
 
 const mapStateToProps = state => ({
+    allPremiers: [...state.moviesPremiers.data, ...state.showsPremiers.data],
     moviesPremiers: getMoviePremiersForCurrentMonth(state.moviesPremiers.data),
     tvPremiers: getTVPremiersForCurrentMonth(state.showsPremiers.data),
 })

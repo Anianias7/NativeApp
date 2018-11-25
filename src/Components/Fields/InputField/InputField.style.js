@@ -1,7 +1,7 @@
 export default {
     FieldInput: {
         flexDirection: 'row',
-        height: 40,
+        display: "flex",
         backgroundColor: 'rgba(189,189,189,0.4)',
         borderRadius: 10,
         borderWidth: 1,

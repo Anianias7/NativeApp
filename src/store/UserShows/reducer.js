@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes'
 
 const initialState = {
-    data: [],
+    usersShowData: [],
     loading: true,
     error: null,
     shouldUpdateList: false,
@@ -12,7 +12,7 @@ const reducer = (state = initialState, { type, payload }) => {
         case actionTypes.GET_USER_TV_PREMIERS_DATA: {
             return {
                 ...state,
-                data: [...payload],
+                usersShowData: [...payload],
                 shouldUpdateList: false,
             }
         }

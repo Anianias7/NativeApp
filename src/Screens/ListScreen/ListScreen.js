@@ -11,7 +11,7 @@ const ListScreen = ({
     ids,
     subtitles
 }) => (
-        <View style={{ backgroundColor: 'white', height: '100%', width: '100%' }}>
+        <View style={{ backgroundColor: 'white', zIndex:200}}>
             <StatusBar
                 backgroundColor="black"
                 barStyle="light-content"
