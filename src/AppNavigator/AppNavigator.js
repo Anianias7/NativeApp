@@ -17,14 +17,22 @@ const AppNavigator = createStackNavigator({
     MoviesPremiersScreen: {
         screen: MoviesPremiersScreen,
         navigationOptions: {
-            headerTitle: "Movies Premiers"
+            headerTitle: "Movies Premiers",
+            headerStyle: {
+                backgroundColor: '#009688',
+            },
+            headerTintColor: 'white',
         }
     },
     ShowsPremiersScreen: {
         screen: ShowsPremiersScreen,
         navigationOptions: {
-            headerTitle: "Shows Premiers"
-        }
+            headerTitle: "Shows Premiers",
+            headerStyle: {
+                backgroundColor: '#FFA000',
+            },
+            headerTintColor: 'white',
+        },
     },
     CastListScreen: {
         screen: CastListScreen,

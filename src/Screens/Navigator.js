@@ -23,7 +23,13 @@ export default createBottomTabNavigator({
             tabBarIcon: ({ tintColor }) => (
                 <Icon name="film" color={tintColor} size={24} />
             ),
-        })
+        }),
+        defaultNavigationOptions: {
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#000',
+            },
+        },
     },
     Shows: {
         screen: UserTVScreen,

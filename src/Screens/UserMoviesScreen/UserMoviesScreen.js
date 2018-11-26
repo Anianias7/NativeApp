@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { View, Text } from 'react-native'
 
 import ListScreen from '../ListScreen/ListScreen'
-import Spinner from '../../Components/Spinner/Spinner'
+
 
 import {
     getPremiersIds,
@@ -23,12 +24,14 @@ class UserMoviesScreen extends Component {
 
     render() {
         return (
+
             <ListScreen
                 onShowDetails={this.onShowMovieDetails}
                 titles={getPremiersTitles(this.props.data)}
                 images={getPremiersImages(this.props.data)}
                 ids={getPremiersIds(this.props.data)}
                 subtitles={getPremiersPremieresDates(this.props.data)} />
+
         );
     }
 
